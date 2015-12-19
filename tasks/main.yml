@@ -1,7 +1,6 @@
 ---
  - include: iocage.yml
  - include: net.yml
- - include: sshd.yml
  - include: syslogd-server.yml
    when: jail_net_ip == syslogd_server
  - include: syslogd-client.yml
