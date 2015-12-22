@@ -53,6 +53,17 @@ Default: `'mail.maildrop.cc'`.
 
 This feature is only active, if the variable `use_ssmtp` is set to any value.
 
+##### host_build_server_enabled
+
+Use own build server repositry to install customized build ports. Default: `'yes'`
+
+##### host_build_server_url
+
+The build server repo http url. Default: `'https://s3-eu-west-1.amazonaws.com/vastland.moumantai.de/public/FreeBSD/packages/freebsd-10_2_x64-HEAD'`
+
+##### host_build_server_pubkey
+
+The public key to use to verify signatures. Default: `'poudriere.pub'`
 Dependencies
 ------------
 
