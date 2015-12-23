@@ -64,6 +64,7 @@ The build server repo http url. Default: `'https://s3-eu-west-1.amazonaws.com/va
 ##### host_build_server_pubkey
 
 The public key to use to verify signatures. Default: `'poudriere.pub'`
+
 Dependencies
 ------------
 
