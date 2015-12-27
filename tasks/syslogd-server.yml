@@ -8,7 +8,7 @@
     insertbefore: EOF
   with_items:
     - { regexp: '^syslogd_enable=', line: 'syslogd_enable=\"YES\"' }
-    - { regexp: '^syslogd_flags=', line: 'syslogd_flags=\"-n -a {{ jail_net_net }} -b {{ jail_net_ip }}\"' }
+    - { regexp: '^syslogd_flags=', line: 'syslogd_flags=\"-n -a {{ jail_net_net }}:* -b {{ jail_net_ip }}\"' }
   notify:
     - Reload {{ jail_name }} s syslogd
 
