@@ -2,8 +2,6 @@
  - include: iocage.yml
  - include: net.yml
  - include: repo.yml
- - include: syslogd-server.yml
-   when: jail_net_ip == syslogd_server
  - include: syslogd-client.yml
    when: use_syslogd_server is defined
  - include: ssmtp.yml
