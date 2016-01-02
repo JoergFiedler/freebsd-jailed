@@ -1,7 +1,8 @@
 ---
 - name: Install ssmtp for easy mail forwarding
-  command: pkg --rootdir {{ jail_home.stdout }} install -y ssmtp
-    creates={{ jail_home.stdout }}/usr/local/sbin/ssmtp
+  pkgng: name=ssmtp
+         state=present
+         chroot={{ jail_home.stdout }}
 
 - name: Copy ssmtp.conf into place
   template: src=ssmtp.conf.p2
