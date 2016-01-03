@@ -1,5 +1,5 @@
 ---
-- name: Install required certificates
+- name: Install root certificate authorities
   pkgng: name=ca_root_nss
          state=present
          chroot={{ jail_home.stdout }}
