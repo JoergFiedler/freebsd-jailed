@@ -12,7 +12,7 @@
   lineinfile:
     dest: '{{ jail_home.stdout }}/etc/rc.conf'
     regexp: 'syslogd_flags='
-    line: 'syslogd_flags=\"-c -s\"'
+    line: 'syslogd_flags="-c -s"'
   notify:
   - Reload {{ jail_name }} s syslogd
 
