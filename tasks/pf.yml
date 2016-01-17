@@ -1,8 +1,8 @@
 ---
 - name: Copy pf configuration (nat rules)
   template:
-    src: pf.anchor.nat-jailed.conf.j2
-    dest: /etc/pf.anchor.nat-jailed.conf
+    src: pf.anchor.nat-jail.conf.j2
+    dest: /etc/pf.anchor.nat-jail.{{ jail_name }}-dns.conf
   notify:
     - Reload pf
 
@@ -10,7 +10,7 @@
   lineinfile:
     dest: /etc/pf.anchor.nat-jail.conf
     state: present
-    line: 'include "/etc/pf.anchor.nat-jailed.conf"'
+    line: 'include "/etc/pf.anchor.nat-jail.{{ jail_name }}-dns.conf"'
   notify:
     - Reload pf
 
