@@ -2,6 +2,7 @@
  - include: iocage.yml
  - include: net.yml
  - include: repo.yml
+ - include: pf.yml
  - include: syslogd-client.yml
    when: use_syslogd_server is defined
  - include: ssmtp.yml
