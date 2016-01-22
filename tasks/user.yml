@@ -1,9 +1,9 @@
 ---
 - name: Update root user
-  lineinfile: dest={{ jail_home.stdout }}/etc/passwd
-              line="root:*:0:0::0:0:root .at {{ ansible_fqdn }}:/root:/bin/csh"
+  lineinfile: dest={{ jail_home.stdout }}/etc/master.passwd
+              line="root:*:0:0::0:0:root at {{ ansible_fqdn }}:/root:/bin/csh"
               regexp="^root:.*"
               state=present
 - name: Update user database
-  command: pwd_mkdb -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/passwd
+  command: pwd_mkdb -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/master.passwd
 
