@@ -4,6 +4,7 @@
  - include: repo.yml
  - include: pf.yml
  - include: user.yml
+ - include: timezone.yml
  - include: syslogd-client.yml
    when: use_syslogd_server is defined
  - include: ssmtp.yml
