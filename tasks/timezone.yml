@@ -1,3 +1,9 @@
 ---
+- name: Read current timezone info
+  command: cat {{ jail_home.stdout }}/var/db/zoneinfo
+  register: zoneinfo
+  changed_when: false
+
 - name: Set timezone info
-  command: cp {{ jail_home.stdout }}/usr/share/zoneinfo/Europe/Berlin {{ jail_home.stdout }}/etc/localtime
+  command: tzsetup -C {{ jail_home.stdout }}/{{ host_timezone }}
+  when: zoneinfo.stdout != host_timezone
