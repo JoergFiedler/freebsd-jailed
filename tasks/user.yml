@@ -1,0 +1,6 @@
+---
+- name: Update comment for root user in user database
+  user: name=root
+        password=*
+        comment='root .at {{ jail_name }}'
+
