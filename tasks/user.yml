@@ -1,7 +1,7 @@
 ---
 - name: Update root user
   lineinfile: dest={{ jail_home.stdout }}/etc/master.passwd
-              line="root:*:0:0::0:0:root at {{ ansible_fqdn }}:/root:/bin/csh"
+              line="root:*:0:0::0:0:root at {{ jail_name }}:/root:/bin/csh"
               regexp="^root:.*"
               state=present
   register: root_updated
