@@ -7,9 +7,6 @@ jail_net_if: 'lo0'
 
 syslog_server: ''
 
-ssmtp_forward_address: 'freebsd-ansible-demo@maildrop.cc'
-ssmtp_forward_mailhub: 'mail.maildrop.cc'
-
 host_build_server_enabled: 'yes'
 host_build_server_url: 'https://s3-eu-west-1.amazonaws.com/vastland.moumantai.de/public/FreeBSD/packages/freebsd-10_2_x64-HEAD'
 host_build_server_pubkey: 'poudriere.pub'

@@ -53,6 +53,22 @@ Default: `'mail.maildrop.cc'`.
 
 This feature is only active, if the variable `use_ssmtp` is set to any value.
 
+##### ssmtp_auth_user
+The user name which is used to authenticate against the SMTP server. No SMTP AUTH if blank. Default: `''`.
+
+This feature is only active, if the variable `use_ssmtp` is set to any value.
+##### ssmtp_auth_pass
+The password which is used to perform SMTP AUTH. No authentication if blank. Default: `''`.
+This feature is only active, if the variable `use_ssmtp` is set to any value.
+##### ssmtp_use_starttls
+Use STARTTLS before starting SSL negotiation. Default: `'no'`.
+
+This feature is only active, if the variable `use_ssmtp` is set to any value.
+##### ssmtp_use_tls
+Uses TLS when talking to SMTP server. Default: `'no'`.
+
+This feature is only active, if the variable `use_ssmtp` is set to any value.
+
 ##### host_build_server_enabled
 
 Use own build server repositry to install customized build ports. Default: `'yes'`
