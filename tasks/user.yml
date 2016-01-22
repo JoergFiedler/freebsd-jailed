@@ -5,5 +5,5 @@
               regexp="^root:.*"
               state=present
 - name: Update user database
-  command: pwd_mkdb -d {{ jail_home.stdout }}/etc
+  command: pwd_mkdb -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/passwd
 
