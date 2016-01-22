@@ -6,4 +6,5 @@
               state=present
 - name: Update user database
   command: pwd_mkdb -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/master.passwd
+  command: pwd_mkdb -p -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/master.passwd
 
