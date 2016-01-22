@@ -3,6 +3,7 @@
   command: cat {{ jail_home.stdout }}/var/db/zoneinfo
   register: zoneinfo
   changed_when: false
+  ignore_errors: true
 
 - name: Set timezone info
   command: tzsetup -C {{ jail_home.stdout }}/{{ host_timezone }}
