@@ -6,5 +6,5 @@
   ignore_errors: true
 
 - name: Set timezone info
-  command: tzsetup -C {{ jail_home.stdout }}/{{ host_timezone }}
+  command: tzsetup -C {{ jail_home.stdout }} {{ host_timezone }}
   when: zoneinfo.stdout != host_timezone
