@@ -4,7 +4,9 @@
               line="root:*:0:0::0:0:root at {{ ansible_fqdn }}:/root:/bin/csh"
               regexp="^root:.*"
               state=present
-- name: Update user database
+- name: Update user database I
   command: pwd_mkdb -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/master.passwd
+
+- name: Update user database II
   command: pwd_mkdb -p -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/master.passwd
 
