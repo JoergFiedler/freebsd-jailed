@@ -1,6 +1,10 @@
 ---
-- name: Update comment for root user in user database
-  user: name=root
-        password=*
-        comment='root .at {{ jail_name }}'
+- name: Update root user
+  lineinfile: dest={{ jail_home.stdout }}/etc/passwd
+              line="root:*:0:0::0:0:root .at {{ ansible_fqdn }}:/root:/bin/csh"
+              regexp="^root:.*"
+              state=present
+  register: root_updated
+  command: pwd_mkdb -d {{ jail_home.stdout }}/etc
+  when: root_update|changed
 
