@@ -1,6 +1,5 @@
 ---
 # defaults file for jailed
-
 jail_name: '{{ jail_net_ip }}'
 jail_domain: 'darkcity'
 jail_net_if: 'lo0'
