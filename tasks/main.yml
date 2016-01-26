@@ -1,11 +1,11 @@
 ---
- - include: iocage.yml tags=jailed
- - include: net.yml tags=jailed
- - include: repo.yml tags=jailed
- - include: pf.yml tags=jailed
- - include: user.yml tags=jailed
- - include: timezone.yml tags=jailed
- - include: syslogd-client.yml tags=jailed
-   when: use_syslogd_server is defined
- - include: ssmtp.yml tags=jailed
-   when: use_ssmtp is defined
+- include: iocage.yml tags=jailed
+- include: net.yml tags=jailed
+- include: repo.yml tags=jailed
+- include: pf.yml tags=jailed
+- include: user.yml tags=jailed
+- include: timezone.yml tags=jailed
+- include: syslogd-client.yml tags=jailed
+  when: use_syslogd_server is defined
+- include: ssmtp.yml tags=jailed
+  when: use_ssmtp is defined
