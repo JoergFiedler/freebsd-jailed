@@ -1,6 +1,6 @@
 ---
 - name: Check if jail already exists
-  shell: /usr/local/sbin/iocage show ip4_addr | grep {{ jail_net_ip }} | cut -d ' ' -f 1
+  shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
   changed_when: false
   register: jail_uuid
 
@@ -12,7 +12,7 @@
   - Start iocage
 
 - name: Get jail s UUID
-  shell: /usr/local/sbin/iocage show ip4_addr | grep {{ jail_net_ip }} | cut -d ' ' -f 1
+  shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
   changed_when: false
   register: jail_uuid
 
