@@ -2,6 +2,7 @@
 - name: Check if jail already exists
   shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
   ignore_errors: true
+  changed_when: false
   register: jail_exists
 
 - name: Create jail
