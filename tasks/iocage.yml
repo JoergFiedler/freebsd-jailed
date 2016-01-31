@@ -1,12 +1,12 @@
 ---
 - name: Check if jail already exists
   shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
-  changed_when: false
-  register: jail_uuid
+  ignore_errors: true
+  register: jail_exists
 
 - name: Create jail
   command: /usr/local/sbin/iocage create tag={{ jail_hostname }} ip4_addr={{ jail_net_ip }}
-  when: not jail_uuid.stdout
+  when: jail_exists|failed
   register: jail_created
   notify:
   - Start iocage
