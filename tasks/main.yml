@@ -20,8 +20,8 @@
 - include: syslogd-client.yml
   tags:
     - jailed
-  when: use_syslogd_server is defined
+  when: use_syslogd_server | default(false)
 - include: ssmtp.yml
   tags:
     - jailed
-  when: use_ssmtp is defined
+  when: use_ssmtp | default(false)
