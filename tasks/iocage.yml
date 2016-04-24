@@ -1,5 +1,8 @@
 ---
 - debug: Running tasks for jail {{ jail_hostname }}, {{ jail_name }}.{{jail_domain}}
+   tags:
+    - always
+
 - name: Check if jail already exists
   shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
   ignore_errors: true
