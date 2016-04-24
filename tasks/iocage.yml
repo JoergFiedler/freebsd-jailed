@@ -1,5 +1,5 @@
 ---
-- debug: Running tasks for jail {{ jail_hostname }}, {{ jail_name }}.{{jail_domain}}
+- debug: msg='Running tasks for jail {{ jail_hostname }}, {{ jail_name }}.{{jail_domain}}'
   tags:
     - always
 
