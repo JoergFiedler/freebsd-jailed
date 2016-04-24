@@ -1,6 +1,6 @@
 ---
 - debug: Running tasks for jail {{ jail_hostname }}, {{ jail_name }}.{{jail_domain}}
-   tags:
+  tags:
     - always
 
 - name: Check if jail already exists
