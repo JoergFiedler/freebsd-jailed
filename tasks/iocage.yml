@@ -20,8 +20,6 @@
   shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
   changed_when: false
   register: jail_uuid
-  tags:
-    - always
 
 - name: Set jail properties
   command: /usr/local/sbin/iocage set {{ item }} {{ jail_uuid.stdout }}
@@ -34,7 +32,4 @@
   command: echo {{ host_ioc_jails_dir }}/{{ jail_uuid.stdout }}/root
   changed_when: false
   register: jail_home
-  tags:
-    - always
-
 
