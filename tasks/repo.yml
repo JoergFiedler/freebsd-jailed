@@ -1,8 +1,4 @@
 ---
-- name: Install root certificate authorities
-  pkgng: name=ca_root_nss
-         state=present
-         chroot={{ jail_home.stdout }}
 
 - name: Create directory which will hold build repo conf
   file: path={{ jail_home.stdout }}/usr/local/etc/pkg/repos
@@ -24,3 +20,9 @@
 - name: Update build server repo data
   command: pkg -c {{ jail_home.stdout }} update
   when: build_server_repo | changed
+
+- name: Install root certificate authorities
+  pkgng: name=ca_root_nss
+         state=present
+         chroot={{ jail_home.stdout }}
+
