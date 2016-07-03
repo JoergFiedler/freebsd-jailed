@@ -16,5 +16,4 @@ galaxy_info:
   - ec2
 allow_duplicates: yes
 dependencies:
-- { role: JoergFiedler.freebsd-jail-host,
-    tags: ['host'] }
+- { role: JoergFiedler.freebsd-jail-host }
