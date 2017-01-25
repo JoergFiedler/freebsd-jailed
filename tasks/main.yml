@@ -1,27 +1,19 @@
 ---
 - include: iocage.yml
-  tags:
-    - jailed
+  tags: jailed
 - include: net.yml
-  tags:
-    - jailed
+  tags: jailed
 - include: repo.yml
-  tags:
-    - jailed
+  tags: jailed
 - include: pf.yml
-  tags:
-    - jailed
+  tags: jailed
 - include: user.yml
-  tags:
-    - jailed
+  tags: jailed
 - include: timezone.yml
-  tags:
-    - jailed
+  tags: jailed
 - include: syslogd-client.yml
-  tags:
-    - jailed
+  tags: jailed
   when: use_syslogd_server | default(false)
 - include: ssmtp.yml
-  tags:
-    - jailed
+  tags: jailed
   when: use_ssmtp | default(false)

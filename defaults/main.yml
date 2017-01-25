@@ -3,10 +3,11 @@
 jail_name: '{{ jail_net_ip }}'
 jail_domain: 'darkcity'
 jail_net_if: 'lo0'
+jail_hostname: '{{ jail_name }}.{{ jail_domain }}'
 
 syslog_server: ''
 
 host_build_server_enabled: 'yes'
-host_build_server_url: 'http://vastland.moumantai.de/FreeBSD/packages/freebsd-10_2_x64-HEAD'
+host_build_server_url: 'http://vastland.moumantai.de/FreeBSD/packages/freebsd-10_3_x64-HEAD'
 host_build_server_pubkey: 'poudriere.pub'
 
