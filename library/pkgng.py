@@ -107,20 +107,7 @@ def query_package(module, pkgng_path, name, dir_arg):
     return False
 
 def pkgng_older_than(module, pkgng_path, compare_version):
-
-    rc, out, err = module.run_command("%s -v" % pkgng_path)
-    version = map(lambda x: int(x), re.split(r'[\._]', out))
-
-    i = 0
-    new_pkgng = True
-    while compare_version[i] == version[i]:
-        i += 1
-        if i == min(len(compare_version), len(version)):
-            break
-    else:
-        if compare_version[i] > version[i]:
-            new_pkgng = False
-    return not new_pkgng
+    return False
 
 
 def remove_packages(module, pkgng_path, packages, dir_arg):
