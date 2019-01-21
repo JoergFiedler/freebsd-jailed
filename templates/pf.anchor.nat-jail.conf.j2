@@ -1,3 +1,5 @@
+{{ ansible_managed | comment }}
+
 # allow dns queries from jail
 nat pass log on {{ host_net_ext_if }} proto udp \
   from {{ jail_net_ip }} \

@@ -1,16 +1,17 @@
+[![Build Status](https://travis-ci.org/JoergFiedler/freebsd-jailed.svg?branch=master)](https://travis-ci.org/JoergFiedler/freebsd-jailed)
+
 freebsd-jailed
 =========
 
-This role provides just a jail. Nothing more. Is used by other roles to created jailed serices. The package `ssmtp` is installed and preconfigured as well if requested (define `use_ssmtp`). Furthermore syslogd is configured to forward all messsages to a central syslogd server if wanted (define `use_syslogd_server`).
-
-To see this role in action, have a look at [this project of mine](https://github.com/JoergFiedler/freebsd-ansible-demo).
+This role just creates a jail. Nothing more. Is used by other roles to create
+jailed services. 
 
 Requirements
 ------------
 
-This role is intent to be used with a fresh FreeBSD 10.2 installation. There is a Vagrant Box with providers for VirtualBox and EC2 you may use.
-
-You will find a sample project which uses this role [here](https://github.com/JoergFiedler/freebsd-ansible-demo).
+This role is intent to be used with a fresh FreeBSD installation. There is a
+Vagrant Box (https://app.vagrantup.com/JoergFiedler) for your convenience with
+providers for VirtualBox and EC2 you may use.
 
 Role Variables
 --------------
@@ -21,7 +22,16 @@ The name for the jail. Local part of the hostname. Default: `'{{ jail_net_ip }}'
 
 ##### jail_domain
 
-The domain this jail belongs to. Domain part of the hostname. Default: `'darkcity'`.
+Domain part of the hostname. Default: `'darkcity'`.
+
+##### jail_backup_old_files
+
+Set to `yes` if you want to create backup file for file modifications done by Ansible. Default: `no`.
+
+##### jail_freebsd_release
+
+The FreeBSD distribution to use for this jail, e.g. `11.2-RELEASE`. Default: Not
+set. `
 
 ##### jail_net_if
 
@@ -31,38 +41,51 @@ The interface to which the jail's ip address is added. Default: `'lo0'`.
 
 The jail's ip address. No default value.
 
+##### jail_net_resolver
+
+The DNS server that will be used as a resolver. If set to `none` resolver 
+config from jail host apply to the jails. Default: `none`.
+
 ##### syslogd_server
 
-The syslogd server to which all syslog messages are going to be forwarded. No default value.
+The syslogd server to which all syslog messages are going to be forwarded. If
+not set messages stay with local syslog. No default value.
 
-This feature is only active if the variable `use_syslogd_server` is set to any value.
+This feature is only active if the variable `use_syslogd_server` is set.
 
-##### host_build_server_enabled
+##### jail_build_server_enabled
 
-Use own build server repositry to install customized build ports. Default: `'yes'`
+Use own build server repository to install customized build ports. Default: `no`
 
-##### host_build_server_url
+##### jail_build_server_url
 
-The build server repo http url. Default: `'https://s3-eu-west-1.amazonaws.com/vastland.moumantai.de/public/FreeBSD/packages/freebsd-10_2_x64-HEAD'`
+The build server repo http url. Default: `''`
 
-##### host_build_server_pubkey
+##### jail_build_server_pubkey
 
 The public key to use to verify signatures. Default: `'poudriere.pub'`
 
 Dependencies
 ------------
 
-- [JoergFiedler.freebsd-jail-host](https://galaxy.ansible.com/detail#/role/5827)
+- [JoergFiedler.freebsd-jail-host](https://galaxy.ansible.com/JoergFiedler/freebsd-jail-host)
 
 Example Playbook
 ----------------
 
-    - { role: JoergFiedler.freebsd-jailed-syslogd,
-        use_ssmtp: true,
-        use_syslogd_server: true,
-        syslogd_server: '10.1.0.99',
-        jail_name: 'dummy',
-        jail_net_ip: '10.1.0.2' }
+	  - hosts: all
+        become: true
+      
+        vars:
+          ansible_python_interpreter: '/usr/local/bin/python2.7'
+      
+        tasks:
+          - include_role:
+              name: 'JoergFiedler.freebsd-jailed'
+            vars:
+              jail_net_ip: '10.1.0.10'
+              jail_name: 'jailed'
+              jail_freebsd_release: '11.2-RELEASE'
 
 License
 -------

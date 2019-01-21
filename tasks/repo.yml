@@ -1,28 +1,35 @@
----
-
 - name: Create directory which will hold build repo conf
-  file: path={{ jail_home.stdout }}/usr/local/etc/pkg/repos
-        state=directory
+  file:
+    path: '{{ jail_home.stdout }}/usr/local/etc/pkg/repos'
+    state: directory
 
 - name: Create directory which will hold build server key
-  file: path={{ jail_home.stdout }}/usr/local/etc/ssl
-        state=directory
+  file:
+    path: '{{ jail_home.stdout }}/usr/local/etc/ssl'
+    state: directory
 
 - name: Copy build server key
-  copy: src={{ host_build_server_pubkey }}
-        dest={{ jail_home.stdout }}/usr/local/etc/ssl/poudriere.pub
+  copy:
+    backup: '{{ jail_backup_old_files }}'
+    src: '{{ jail_build_server_pubkey }}'
+    dest: '{{ jail_home.stdout }}/usr/local/etc/ssl/poudriere.pub'
 
 - name: Install build server repo
-  template: src=poudriere.conf.p2
-            dest={{ jail_home.stdout }}/usr/local/etc/pkg/repos/poudriere.conf
+  template:
+    backup: '{{ jail_backup_old_files }}'
+    src: 'poudriere.conf.j2'
+    dest: '{{ jail_home.stdout }}/usr/local/etc/pkg/repos/poudriere.conf'
   register: build_server_repo
 
 - name: Update build server repo data
-  command: pkg -c {{ jail_home.stdout }} update
-  when: build_server_repo | changed
+  command: |
+    pkg -c {{ jail_home.stdout }} update
+  when: build_server_repo is changed
 
 - name: Install root certificate authorities
-  pkgng: name=ca_root_nss
-         state=present
-         chroot={{ jail_home.stdout }}
-
+  pkgng:
+    name: 'ca_root_nss'
+    state: present
+    chroot: '{{ jail_home.stdout }}'
+  register: pkg_result
+  until: pkg_result is succeeded

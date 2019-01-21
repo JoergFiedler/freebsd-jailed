@@ -1,19 +1,33 @@
----
-- include: iocage.yml
-  tags: jailed
-- include: net.yml
-  tags: jailed
-- include: repo.yml
-  tags: jailed
-- include: pf.yml
-  tags: jailed
-- include: user.yml
-  tags: jailed
-- include: timezone.yml
-  tags: jailed
-- include: syslogd-client.yml
-  tags: jailed
+- import_role:
+    name: JoergFiedler.freebsd-jail-host
+  tags:
+    - jailed
+
+
+- import_tasks: iocage.yml
+  tags:
+    - jailed
+- import_tasks: net.yml
+  tags:
+    - jailed
+- import_tasks: repo.yml
+  tags:
+    - jailed
+  when:  jail_build_server_enabled | default(false)
+- import_tasks: pf.yml
+  tags:
+    - jailed
+- import_tasks: user.yml
+  tags:
+    - jailed
+- import_tasks: timezone.yml
+  tags:
+    - jailed
+- import_tasks: syslogd-client.yml
+  tags:
+    - jailed
   when: use_syslogd_server | default(false)
-- include: ssmtp.yml
-  tags: jailed
+- import_tasks: ssmtp.yml
+  tags:
+    - jailed
   when: use_ssmtp | default(false)

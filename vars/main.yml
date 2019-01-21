@@ -1,2 +1,2 @@
----
 # vars file for jailed_syslogd
+ifconfig_net_if_line: 'ifconfig_{{ jail_net_if }}_alias{{ jail_net_ip | ipaddr("int") }}="inet {{ jail_net_ip }} netmask 255.255.255.255"'

@@ -1,19 +1,16 @@
----
 galaxy_info:
   author: Joerg Fiedler
   description: Provides a jail.
   license: BSD
-  min_ansible_version: 2.0
+  min_ansible_version: 2.7.0
   platforms:
   - name: FreeBSD
     versions:
-    - 10.2
+    - 11.2
   galaxy_tags:
-  - FreeBSD
+  - freebsd
   - jails
   - iocage
   - cloud
   - ec2
 allow_duplicates: yes
-dependencies:
-- { role: JoergFiedler.freebsd-jail-host }

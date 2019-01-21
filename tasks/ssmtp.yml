@@ -1,13 +1,19 @@
----
 - name: Install ssmtp for easy mail forwarding
-  pkgng: name=ssmtp
-         state=present
-         chroot={{ jail_home.stdout }}
+  pkgng:
+    name: 'ssmtp'
+    state: present
+    chroot: '{{ jail_home.stdout }}'
+  register: pkg_result
+  until: pkg_result is succeeded
 
 - name: Copy ssmtp.conf into place
-  template: src=ssmtp.conf.p2
-            dest={{ jail_home.stdout }}/usr/local/etc/ssmtp/ssmtp.conf
+  template:
+    backup: '{{ jail_backup_old_files }}'
+    src: 'ssmtp.conf.j2'
+    dest: '{{ jail_home.stdout }}/usr/local/etc/ssmtp/ssmtp.conf'
 
 - name: Copy mailer configuration into place
-  copy: src=mailer.conf
-        dest={{ jail_home.stdout }}/etc/mail/mailer.conf
+  copy:
+    backup: '{{ jail_backup_old_files }}'
+    src: 'mailer.conf'
+    dest: '{{ jail_home.stdout }}/etc/mail/mailer.conf'

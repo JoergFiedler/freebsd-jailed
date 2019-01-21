@@ -1,33 +1,50 @@
----
-- debug: msg='Running tasks for jail {{ jail_hostname }}'
+- debug: msg='Running tasks for jail {{ jail_name }}'
 
 - name: Check if jail already exists
-  shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
-  ignore_errors: true
+  command: |
+    /usr/local/bin/iocage get boot {{ jail_name }}
+  ignore_errors: yes
   changed_when: false
   register: jail_exists
 
 - name: Create jail
-  command: /usr/local/sbin/iocage create tag={{ jail_hostname }} ip4_addr={{ jail_net_ip }}
-  when: jail_exists|failed
+  command: |
+    /usr/local/bin/iocage create \
+      --name {{ jail_name }} \
+      --release {{ jail_freebsd_release }}
+  when: jail_exists is failed
   register: jail_created
   notify:
-  - Start iocage
-
-- name: Get jail s UUID
-  shell: /usr/local/sbin/iocage get host_hostuuid {{ jail_hostname }}
-  changed_when: false
-  register: jail_uuid
+    - Start iocage
 
 - name: Set jail properties
-  command: /usr/local/sbin/iocage set {{ item }} {{ jail_uuid.stdout }}
-  with_items:
-  - 'boot=on'
-  - 'hostname={{ jail_hostname }}'
-  when: jail_created|changed
+  command: |
+    /usr/local/bin/iocage set {{ item }} {{ jail_name }}
+  loop:
+    - 'boot=on'
+    - 'vnet=off'
+    - 'resolver={{ jail_net_resolver }}'
+    - 'ip4_addr=lo0|{{ jail_net_ip }}/32'
+  when: jail_created is changed
 
 - name: Register home diretory
-  command: echo {{ host_ioc_jails_dir }}/{{ jail_uuid.stdout }}/root
+  command: |
+    echo {{ host_ioc_jails_dir }}/{{ jail_name }}/root
   changed_when: false
   register: jail_home
 
+- name: Copy default resolv.conf
+  copy:
+    backup: '{{ jail_backup_old_files }}'
+    src: '/etc/resolv.conf'
+    dest: '{{ jail_home.stdout }}/etc/resolv.conf'
+    remote_src: true
+  when: jail_created is changed
+
+- name: Update resolv.conf
+  replace:
+    backup: '{{ jail_backup_old_files }}'
+    path: '{{ jail_home.stdout }}/etc/resolv.conf'
+    regexp: '(nameserver\s+).*$'
+    replace: '\1{{ jail_net_resolver }}'
+  when: jail_net_resolver != 'none'

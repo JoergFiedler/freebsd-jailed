@@ -1,0 +1,24 @@
+dist: xenial
+language: python
+python: 2.7
+install:
+- wget https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb
+- sudo dpkg -i vagrant_2.2.2_x86_64.deb
+- pip install -r .requirements.txt
+before_script:
+- vagrant plugin install vagrant-aws
+- ssh-keygen -y -f ~/.vagrant.d/insecure_private_key > ~/.vagrant.d/insecure_private_key.pub
+- ln -s ./ JoergFiedler.freebsd-jailed
+script:
+- ansible-lint .
+- yamllint .
+- ansible-galaxy install -p ./ -r .requirements.yml
+- vagrant box add JoergFiedler/FreeBSD-11.2 --provider aws
+- vagrant up --provider aws
+- vagrant ssh -c "sudo iocage exec jailed ps xa"
+after_script:
+- vagrant destroy -f
+env:
+  global:
+  - secure: HIZ+S4ckbyHTyRKl3orHiL7Haqaui1+EjQ1fJiYDKfUoq8XqhxlZdJV8RimMPLs22FpLN5NrH0TSM3qTMcd4yQihYROSWFSilUs8astKfHmavA4PboWJWxG0+JDuDOqzM9prqWt+nxTF08J9JN8OK2BF9jM50KRL4qu94J2ODRI58HjxGnlqL02VFQqqCfS0MaIuaxGp2yKaycSmdH9aT8kwRgQt0Y/3k7tLRv37STfERUlSxAIJ4dNxAvHui+FZvVmnIPAa1CrWq3Z17SNyDWiz/s9HpZiW5mPK5SyDzaFo3JCpQDAqzuSObpi1UuW+O43GtkgnahdZJ3VE27HcmY9g8uduWYtyk67jsYXNg9v6pdFQLHkoUEdVA61ddi09yXTgl97AuUV4dokIirFsI7pC5k59NLp1CdC6zODPG2yZ5pBoCmQzc/RLRz6Qi/OjgNl6Usf63uwZ/hqDjAlLrOilUBPnR+HM+4VtqtK0wAlzihGYnRUzJFznrfXa/Jq46Ryqm+KUps5TeUZjWetpSP2B5SPhlYXECIpdeFdyQktyHfiGNUcvX+df8lgA4Nfzqx7fynJWZEdUdq7RanvRbZ3sAzqWuzWR15TLIZdOJfmWn61iP63X9s78mWZ5h6fP+n1sQEekAhrwxnDxRKwsvBSwQKMoMWsPFFlLhQfHnyo=
+  - secure: GrAi8Ev07xYgOD/55B7fKI3VW4b5kSd6y7Dq05Zyr8puViS/sjFiYWZqdRGMbTEsKfghFEimmIlERPCr2i6Cau8+t1aMc6I3y0b8kaurhXkqzYv4I4HHc2pkFBCqDHwQjZREkSH1gNoK6Sqqhj9YIc+guc+K93FLIdZlkqlsKCKn/UQxlOpXBNC0kHpA6p38u9VOE31eT3ktWnbdhv0/AaHS9ml49cZ/UcpoEjTq+7apuwgTZKY/a149QuGoRsmfyKK/ApcQlXHujA5h+xK7GZzKNV9gmrhXEkXHlw6fgWdcGcxps9jmDIdZQQLFkGZZswMWOWWDeG+N9VI6THO8snrGvRmsCG67B68QLcxh0Knu8zl2QX6gsg/1JwXvhqDIoGMhQF6F9e/xzyMRo0a9vn+70/Ug5nRaUDhQFmEn7zq9uSn4TEPM78GSbCWuebiY7Qp2lZxRs8MPxr8dlFdPQUPznBIk6CkSE+pzFHuSEL9X1PpYgYfiv7iJTYBlouX3tF2Jl9Zu4SDElMNps5gsaJtCskElKcuVVv+4km5AgYP7pN31cb4LuSbgdcbweka1XtrhGbBgDV5g0lUAU/V0651ISqSl/2vw8tja1qsz6FsMqWRR6bIAErgZyhFmqi1xtr954NXmIamDbPaL4PbUYZckPPlTXQ6xpEYcjbvc67w=

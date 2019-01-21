@@ -1,5 +1,13 @@
+{{ ansible_managed | comment }}
+
 # send off mail via ssmtp_mailhub
 pass out log on {{ host_net_int_if }} proto tcp \
   from {{ jail_net_ip }} \
   to {{ ssmtp_mailhub }} port {{ ssmtp_mailhub_port }} \
   flags S/SA modulate state
+
+ # allow syslog messages within jail
+pass log on {{ host_net_int_if }} proto udp \
+  from {{ jail_net_ip }} \
+  to {{ jail_net_ip }} port syslog
+
