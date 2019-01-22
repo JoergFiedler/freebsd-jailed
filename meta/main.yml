@@ -14,3 +14,5 @@ galaxy_info:
   - cloud
   - ec2
 allow_duplicates: yes
+dependencies:
+  - { role: JoergFiedler.freebsd-jail-host }
