@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/JoergFiedler/freebsd-jailed.svg?branch=master)](https://travis-ci.org/JoergFiedler/freebsd-jailed)
-
 freebsd-jailed
 =========
+
+[![Build Status](https://travis-ci.org/JoergFiedler/freebsd-jailed.svg?branch=master)](https://travis-ci.org/JoergFiedler/freebsd-jailed)
 
 This role just creates a jail. Nothing more. Is used by other roles to create
 jailed services. 
