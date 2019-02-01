@@ -3,7 +3,7 @@
     backup: '{{ jail_backup_old_files }}'
     dest: '{{ jail_home.stdout }}/etc/syslog.conf'
     state: present
-    line: '*.*      @{{ syslogd_server }}'
+    line: '*.*      @{{ jail_syslogd_server }}'
     insertafter: '^#\s+Consult the syslog.conf'
   notify:
     - Reload {{ jail_name }} s syslogd

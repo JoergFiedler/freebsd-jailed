@@ -46,12 +46,13 @@ The jail's ip address. No default value.
 The DNS server that will be used as a resolver. If set to `none` resolver 
 config from jail host apply to the jails. Default: `none`.
 
-##### syslogd_server
+##### jail_use_syslogd_server
+##### jail_syslogd_server
 
 The syslogd server to which all syslog messages are going to be forwarded. If
 not set messages stay with local syslog. No default value.
 
-This feature is only active if the variable `use_syslogd_server` is set.
+This feature is only active if the variable `jail_use_syslogd_server` is set.
 
 ##### jail_build_server_enabled
 

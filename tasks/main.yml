@@ -20,7 +20,7 @@
 - import_tasks: syslogd-client.yml
   tags:
     - jailed
-  when: use_syslogd_server | default(false)
+  when: jail_use_syslogd_server | default(false)
 - import_tasks: ssmtp.yml
   tags:
     - jailed

@@ -8,6 +8,7 @@ jail_build_server_url: ''
 jail_domain: 'darkcity'
 jail_hostname: '{{ jail_name }}.{{ jail_domain }}'
 jail_name: '{{ jail_net_ip }}'
+jail_use_syslog_server: no
 
 jail_net_if: 'lo0'
 jail_net_resolver: 'none'
