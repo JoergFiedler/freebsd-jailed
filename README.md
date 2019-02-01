@@ -81,7 +81,7 @@ Example Playbook
           ansible_python_interpreter: '/usr/local/bin/python2.7'
       
         tasks:
-          - include_role:
+          - import_role:
               name: 'JoergFiedler.freebsd-jailed'
             vars:
               jail_net_ip: '10.1.0.10'
