@@ -17,4 +17,4 @@ galaxy_info:
   - web
 allow_duplicates: yes
 dependencies:
-  - role: JoergFiedler.freebsd-jail-host
+  - { role: 'JoergFiedler.freebsd-jail-host', tags: ['jailed'] }
