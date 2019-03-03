@@ -1,3 +1,10 @@
+- name: Install root certificate authorities
+  pkgng:
+    name: 'ca_root_nss'
+    state: present
+  register: pkg_result
+  until: pkg_result is succeeded
+
 - name: Add network config
   lineinfile:
     backup: '{{ jail_backup_old_files }}'
