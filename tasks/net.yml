@@ -15,8 +15,8 @@
 
 - name: Add jail name to /etc/hosts
   lineinfile:
-    backup: '{{ backup_old_files }}'
-    dest: '/etc/hosts'
+    backup: '{{ jail_backup_old_files }}'
+    dest: '{{ jail_home.stdout }}/etc/hosts'
     state: present
     regexp: '^{{ jail_net_ip }}'
     line: '{{ jail_net_ip }}  {{ jail_name }}'
