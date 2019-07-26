@@ -15,7 +15,7 @@
   when: jail_exists is failed
   register: jail_created
   notify:
-    - Start iocage
+    - Restart jail
 
 - name: Set jail properties
   command: |
@@ -48,3 +48,13 @@
     regexp: '(nameserver\s+).*$'
     replace: '\1{{ jail_net_resolver }}'
   when: jail_net_resolver != 'none'
+
+- name: Activate network config
+  command: |
+    ifconfig {{ jail_net_if }} inet alias {{ jail_net_ip }} netmask 255.255.255.255
+  when: jail_created is changed
+
+- name: Start jail
+  command: |
+    /usr/local/bin/iocage start {{ jail_name }}
+  when: jail_created is changed
