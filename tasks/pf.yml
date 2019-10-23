@@ -1,20 +1,3 @@
-- name: Make sure old pf configuration file for nat is gone
-  file:
-    backup: '{{ jail_backup_old_files }}'
-    path: '/etc/pf.anchor.nat-jail.{{ jail_name }}-dns.conf'
-    state: absent
-  notify:
-    - Reload pf
-
-- name: Remove old pf configuration file from configuration
-  lineinfile:
-    backup: '{{ jail_backup_old_files }}'
-    dest: '/etc/pf.anchor.nat-jail.conf'
-    state: absent
-    line: 'include "/etc/pf.anchor.nat-jail.{{ jail_name }}-dns.conf"'
-  notify:
-    - Reload pf
-
 - name: Copy pf configuration (nat)
   template:
     backup: '{{ jail_backup_old_files }}'
