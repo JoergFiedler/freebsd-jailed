@@ -23,8 +23,8 @@
   loop:
     - 'boot=on'
     - 'vnet=off'
-    - 'resolver={{ jail_net_resolver }}'
     - 'ip4_addr=lo0|{{ jail_net_ip }}/32'
+    - "resolver='{{ jail_net_resolver }}'"
   when: jail_created is changed
 
 - name: Register home diretory
@@ -41,14 +41,6 @@
     remote_src: true
   when: jail_created is changed
 
-- name: Update resolv.conf
-  replace:
-    backup: '{{ jail_backup_old_files }}'
-    path: '{{ jail_home.stdout }}/etc/resolv.conf'
-    regexp: '(nameserver\s+).*$'
-    replace: '\1{{ jail_net_resolver }}'
-  when: jail_net_resolver != 'none'
-
 - name: Activate network config
   command: |
     ifconfig {{ jail_net_if }} inet alias {{ jail_net_ip }} netmask 255.255.255.255
@@ -57,4 +49,4 @@
 - name: Start jail
   command: |
     /usr/local/bin/iocage start {{ jail_name }}
-  when: jail_created is changed
+  when: not use_local_unbound

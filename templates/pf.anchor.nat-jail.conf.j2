@@ -5,6 +5,7 @@ nat pass log on {{ host_net_ext_if }} proto udp \
   from {{ jail_net_ip }} \
   to any port domain \
   -> {{ host_net_ext_ip }}
+
 # send off mail via ssmtp_mailhub
 nat pass log on {{ host_net_ext_if }} proto tcp \
   from {{ jail_net_ip }} \

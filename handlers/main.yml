@@ -15,3 +15,8 @@
   command: |
     /usr/local/bin/iocage exec {{ jail_name }} service syslogd reload
   when: not jail_created is changed
+
+- name: Reload jail s local_unbound
+  command: |
+    iocage exec {{ jail_name }} service local_unbound reload
+  when: not jail_created is changed

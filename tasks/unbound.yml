@@ -1,0 +1,70 @@
+---
+- name: Load root.hints file
+  command: |
+    fetch \
+    https://www.internic.net/domain/named.cache \
+    -o {{ jail_home.stdout }}/etc/unbound/root.hints
+  args:
+    creates: '{{ jail_home.stdout }}/etc/unbound/root.hints'
+
+- name: Update root.key
+  command: |
+   chroot {{ jail_home.stdout }} \
+    /usr/sbin/unbound-anchor -a /var/unbound/root.key
+  args:
+    creates: '{{ jail_home.stdout }}/etc/unbound/root.key'
+  register: anchor_cmd
+  failed_when: anchor_cmd.rc != 0 and anchor_cmd.rc != 1
+
+- name: Update root.hints once every day
+  blockinfile:
+    dest: '{{ jail_home.stdout }}/etc/crontab'
+    state: present
+    marker: '# {mark} Update /etc/unbound/root.hints'
+    block: |
+      URL="https://www.internic.net/domain/named.cache"
+      FILE="/etc/unbound/root.hints"
+      17 23 * * * root fetch ${URL} -o ${FILE}
+      22 23 * * * root service local_unbound reload)
+
+- name: Copy unbound.conf
+  template:
+    src: 'unbound.conf.j2'
+    dest: '{{ jail_home.stdout }}/etc/unbound/unbound.conf'
+  notify:
+    - Reload jail s local_unbound
+
+- name: Activate local_unbound service
+  blockinfile:
+    dest: '{{ jail_home.stdout }}/etc/rc.conf'
+    state: present
+    marker: '# {mark} local_unbound'
+    block: |
+      local_unbound_enable="YES"
+
+- name: Copy pf configuration (rls)
+  template:
+    backup: '{{ jail_backup_old_files }}'
+    src: 'pf.anchor.rls-jail-unbound.conf.j2'
+    dest: '/etc/pf.anchor.rls-jail.{{ jail_name }}-jailed-unbound.conf'
+  notify:
+    - Reload pf
+
+- name: Add pf configuration to anchor.rls-jail conf
+  lineinfile:
+    backup: '{{ jail_backup_old_files }}'
+    dest: '/etc/pf.anchor.rls-jail.conf'
+    line: 'include "/etc/pf.anchor.rls-jail.{{ jail_name }}-jailed-unbound.conf"'
+    state: present
+  notify:
+    - Reload pf
+
+- name: Reload pf
+  service:
+    name: 'pf'
+    state: reloaded
+
+- name: Start jail
+  shell: |
+    /usr/local/bin/iocage start {{ jail_name }}
+  when: jail_created is changed

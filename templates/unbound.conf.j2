@@ -1,0 +1,21 @@
+remote-control:
+        control-enable: yes
+        control-interface: /var/run/local_unbound.ctl
+        control-use-cert: no
+server:
+        unblock-lan-zones: yes
+        insecure-lan-zones: yes
+        do-ip4: yes
+        do-ip6: no
+        do-udp: yes
+        do-tcp: yes
+        access-control: {{ host_net_int_net }} allow
+        verbosity: 5
+        username: unbound
+        directory: /var/unbound
+        chroot: /var/unbound
+        pidfile: /var/run/local_unbound.pid
+        root-hints: "/var/unbound/root.hints"
+        auto-trust-anchor-file: /var/unbound/root.key
+        root-hints: "/var/unbound/root.hints"
+        use-syslog: yes
