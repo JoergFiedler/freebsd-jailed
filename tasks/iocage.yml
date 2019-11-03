@@ -23,6 +23,8 @@
   loop:
     - 'boot=on'
     - 'vnet=off'
+    - 'host_domainname={{ jail_domain }}'
+    - 'host_hostname={{ jail_hostname }}'
     - 'ip4_addr=lo0|{{ jail_net_ip }}/32'
     - "resolver='{{ jail_net_resolver }}'"
   when: jail_created is changed
@@ -49,4 +51,4 @@
 - name: Start jail
   command: |
     /usr/local/bin/iocage start {{ jail_name }}
-  when: not use_local_unbound
+  when: not use_local_unbound and jail_created is changed
