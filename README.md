@@ -30,8 +30,7 @@ Set to `yes` if you want to create backup file for file modifications done by An
 
 ##### jail_freebsd_release
 
-The FreeBSD distribution to use for this jail, e.g. `11.2-RELEASE`. Default: Not
-set. `
+The FreeBSD distribution to use for this jail, e.g. `12.1-RELEASE`. If not set, it will hosts release version. Default: `{{ ansible_distribution_version }}-RELEASE` 
 
 ##### jail_net_if
 

@@ -4,6 +4,7 @@ jail_backup_old_files: no
 jail_build_server_enabled: no
 jail_build_server_pubkey: 'poudriere.pub'
 jail_build_server_url: ''
+jail_freebsd_release: '{{ ansible_distribution_version }}-RELEASE'
 
 jail_domain: 'darkcity'
 jail_hostname: '{{ jail_name }}.{{ jail_domain }}'
