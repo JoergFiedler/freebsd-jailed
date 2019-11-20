@@ -2,7 +2,7 @@
   become: true
 
   vars:
-    ansible_python_interpreter: '/usr/local/bin/python2.7'
+    ansible_python_interpreter: '/usr/local/bin/python3.6'
 
   tasks:
     - import_role:
@@ -12,4 +12,3 @@
       vars:
         jail_net_ip: '10.1.0.10'
         jail_name: 'jailed'
-        jail_freebsd_release: '11.2-RELEASE'
