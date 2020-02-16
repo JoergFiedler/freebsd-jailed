@@ -76,9 +76,6 @@ Example Playbook
 	  - hosts: all
         become: true
       
-        vars:
-          ansible_python_interpreter: '/usr/local/bin/python2.7'
-      
         tasks:
           - import_role:
                 name: 'JoergFiedler.freebsd-jail-host'
