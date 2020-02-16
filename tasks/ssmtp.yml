@@ -13,7 +13,7 @@
     dest: '{{ jail_home.stdout }}/usr/local/etc/ssmtp/ssmtp.conf'
 
 - name: Copy mailer configuration into place
-  copy:
+  template:
     backup: '{{ jail_backup_old_files }}'
-    src: 'mailer.conf'
+    src: 'mailer.conf.j2'
     dest: '{{ jail_home.stdout }}/etc/mail/mailer.conf'
