@@ -73,18 +73,17 @@ Dependencies
 Example Playbook
 ----------------
 
-	  - hosts: all
-        become: true
-      
-        tasks:
-          - import_role:
-                name: 'JoergFiedler.freebsd-jail-host'
-          - import_role:
-              name: 'JoergFiedler.freebsd-jailed'
-            vars:
-              jail_net_ip: '10.1.0.10'
-              jail_name: 'jailed'
-              jail_freebsd_release: '11.2-RELEASE'
+    - hosts: all
+      become: true
+    
+      tasks:
+        - import_role:
+            name: 'JoergFiedler.freebsd-jail-host'
+        - include_role:
+            name: 'JoergFiedler.freebsd-jailed'
+          vars:
+            jail_net_ip: '10.1.0.10'
+            jail_name: 'jailed'
 
 License
 -------
