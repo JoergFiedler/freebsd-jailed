@@ -1,0 +1,7 @@
+{{ ansible_managed | comment }}
+
+# allow local dns queries
+pass log on {{ host_net_int_if }} proto {udp,tcp} \
+  from { {{ jail_net_ip }}, 127.0.0.1 } \
+  to { {{ jail_net_ip }}, 127.0.0.1 } port 53 \
+  keep state

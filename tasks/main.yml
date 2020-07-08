@@ -1,3 +1,6 @@
+- name: Set var use_local_unbound
+  set_fact: use_local_unbound={{ jail_net_resolver | regex_search(jail_net_ip) | ternary(true, false) }}
+
 - import_tasks: iocage.yml
   tags:
     - jailed
@@ -25,3 +28,7 @@
   tags:
     - jailed
   when: use_ssmtp | default(false)
+- import_tasks: unbound.yml
+  tags:
+    - unbound
+  when: use_local_unbound

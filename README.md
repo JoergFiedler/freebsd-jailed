@@ -45,6 +45,11 @@ The jail's ip address. No default value.
 The DNS server that will be used as a resolver. If set to `none` resolver 
 config from jail host apply to the jails. Default: `none`.
 
+Set this as specified in `man 8 iocage`, e.g. `nameserver 1.1.1.1`. The setting
+will be used to create the jail's `/etc/resolv.conf`.
+
+If the value contains the ip of the jail, **unbound** resolver will be installed.
+
 ##### jail_use_syslogd_server
 ##### jail_syslogd_server
 
@@ -56,6 +61,9 @@ This feature is only active if the variable `jail_use_syslogd_server` is set.
 ##### jail_build_server_enabled
 
 Use own build server repository to install customized build ports. Default: `no`
+
+If enable the FreeBSD repo `/etc/pkg/FreeBSD.conf` will be disabled. So, please
+make sure all packages you want to install are present in `jail_build_server_url`.
 
 ##### jail_build_server_url
 
