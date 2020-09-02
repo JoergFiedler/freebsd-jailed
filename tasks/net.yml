@@ -5,10 +5,10 @@
     state: present
     line: '{{ ifconfig_net_if_line }}'
 
-- name: Add jail name to /etc/hosts
+- name: Add jail name to /etc/rc.conf
   lineinfile:
     backup: '{{ jail_backup_old_files }}'
-    dest: '{{ jail_home.stdout }}/etc/hosts'
+    dest: '{{ jail_home.stdout }}/etc/rc.conf'
     state: present
-    regexp: '^{{ jail_net_ip }}'
-    line: '{{ jail_net_ip }}  {{ jail_name }}'
+    regexp: '^hostname='
+    line: 'hostname={{ jail_hostname }}'

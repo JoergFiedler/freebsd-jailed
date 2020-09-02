@@ -25,7 +25,7 @@
       URL="https://www.internic.net/domain/named.cache"
       FILE="/etc/unbound/root.hints"
       17 23 * * * root fetch ${URL} -o ${FILE}
-      22 23 * * * root service local_unbound reload)
+      22 23 * * * root service local_unbound reload
 
 - name: Copy unbound.conf
   template:
