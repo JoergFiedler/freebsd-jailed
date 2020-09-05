@@ -7,7 +7,8 @@
 
 - name: Restart jail
   shell: |
-    /usr/local/bin/iocage restart {{ jail_name }}
+    /usr/local/bin/iocage stop -i {{ jail_name }}
+    /usr/local/bin/iocage start {{ jail_name }}
   listen: Restart jail
 
 - name: Reload jail s syslogd
