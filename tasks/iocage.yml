@@ -23,6 +23,7 @@
   loop:
     - 'boot=on'
     - 'vnet=off'
+    - 'devfs_ruleset={{ jail_devfs_ruleset }}'
     - 'host_domainname={{ jail_domain }}'
     - 'host_hostname={{ jail_hostname }}'
     - 'ip4_addr=lo0|{{ jail_net_ip }}/32'
