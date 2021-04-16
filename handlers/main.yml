@@ -1,22 +1,22 @@
-- name: Unmount devfs
+- name: Unmount {{ jail_name }} devfs
   command: |
     umount {{ jail_home.stdout }}/dev
   args:
     warn: False
   listen: unmount chroot devfs
 
-- name: Restart jail
+- name: Restart jail {{ jail_name }}
   shell: |
     /usr/local/bin/iocage stop -i {{ jail_name }}
     /usr/local/bin/iocage start {{ jail_name }}
   listen: Restart jail
 
-- name: Reload jail s syslogd
+- name: Reload {{ jail_name }} syslogd
   command: |
     /usr/local/bin/iocage exec {{ jail_name }} service syslogd reload
   when: not jail_created is changed
 
-- name: Reload jail s local_unbound
+- name: Reload {{ jail_name }} local_unbound
   command: |
     iocage exec {{ jail_name }} service local_unbound reload
   when: not jail_created is changed

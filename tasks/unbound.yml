@@ -32,7 +32,7 @@
     src: 'unbound.conf.j2'
     dest: '{{ jail_home.stdout }}/etc/unbound/unbound.conf'
   notify:
-    - Reload jail s local_unbound
+    - Reload {{ jail_name }} jail s local_unbound
 
 - name: Activate local_unbound service
   blockinfile:
