@@ -4,6 +4,10 @@ jail_backup_old_files: no
 jail_build_server_enabled: no
 jail_build_server_pubkey: 'poudriere.pub'
 jail_build_server_url: ''
+
+# default devfs rules for jails from /etc/defaults/devfs.rules
+jail_devfs_ruleset: '4'
+
 jail_freebsd_release: '{{ ansible_distribution_version }}-RELEASE'
 
 jail_domain: 'darkcity'
