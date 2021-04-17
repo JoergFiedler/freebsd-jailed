@@ -15,7 +15,7 @@
   when: jail_exists is failed
   register: jail_created
   notify:
-    - Restart jail
+    - Restart jail {{ jail_name }}
 
 - name: Set jail properties
   command: |
